@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Color;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -35,7 +36,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	 */
 
 	BufferedImage backgroundImage;
-
+	MediaPalace media = new MediaPalace();
 
 	@Override
 	public void run() {
@@ -52,6 +53,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		frame.add(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
+		frame.addMouseListener(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
@@ -72,7 +74,15 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		//media.speak("hello");
+		
+		if(e.getX() < 100 && e.getY() < 100) {
+			media.speak("Top Left");
+		}else if (e.getX() > (backgroundImage.getWidth()-100) && e.getY() < 100) {
+			media.speak("Top Right");
+		}else if(e.getX() < 100 && e.getY() > (backgroundImage.getWidth()-100)) {
+			media.speak("Bottom Left");
+		}
 		
 	}
 

@@ -29,6 +29,12 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 public class Jukebox implements Runnable, MouseListener {
 	static Song holyDiver = new Song ("Dio-Holy-Diver.mp3");
 	static Song godzilla = new Song ("godzilla.mp3");
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	JLabel holyLabel = new JLabel();
+	JLabel godLabel = new JLabel();
+	JLabel holyLabelI = loadImage("holyDiver.jpeg");
+	JLabel godLabelI = loadImage("godzilla.jpg");
     public void run() {
 
 		// 1. Find an mp3 on your computer or on the Internet.
@@ -43,27 +49,38 @@ public class Jukebox implements Runnable, MouseListener {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
-    	JFrame frame = new JFrame();
-    	JPanel panel = new JPanel();
-    	JLabel holyLabel = new JLabel();
-    	JLabel godLabel = new JLabel();
+    	
+    	 frame.setSize(500, 500);
     	frame.add(panel);
     	frame.setVisible(true);
     	holyLabel.setText("Holy Diver");
     	godLabel.setText("Godzilla");
+    	panel.setSize(500, 500);
+    	panel.setLayout(null);
+    
+
+    	
+    	holyLabel.setBounds(25, 400, 100, 50);
+    	godLabel.setBounds(400, 400, 100, 50);
+    	holyLabelI.setBounds(25, 50, 100, 100);
+    	godLabelI.setBounds(400, 50, 100, 100);
+    	//loadImage("godzilla.jpg");
+    	
+    	//label.setBounds(0,0,100,100);
     	panel.add(holyLabel);
-    	holyLabel.setBounds(0, 0, 100, 100);
-    	godLabel.setBounds(1000, 100, 100, 100);
-    	panel.add(loadImage("godzilla.jpg"));
-    	panel.add(loadImage("holyDiver.jpeg"));
-    	
-    	loadImage("godzilla.jpeg").setBounds(0,0,100,100);
     	panel.add(godLabel);
+    	panel.add(godLabelI);
+    	panel.add(holyLabelI);
     	
     	
     	
-    	frame.pack();
-    	//holyLabel.addMouseListener(this);
+    	
+    	
+    	
+    	
+    	
+    	holyLabel.addMouseListener(this);
+    	godLabel.addMouseListener(this);
     }
     
     
@@ -79,7 +96,16 @@ public class Jukebox implements Runnable, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		holyDiver.play();
+		JLabel label = (JLabel)e.getSource();
+		if(label.equals(godLabel)) {
+			godzilla.play();
+			holyDiver.stop();
+		}else {
+			holyDiver.play();
+			godzilla.stop();
+		}
+		
+		
 		
 	}
 
